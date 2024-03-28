@@ -14,6 +14,7 @@ class _AddExpenseState extends State<AddExpense> {
   TextEditingController expenseController = TextEditingController();
   TextEditingController categoryController = TextEditingController();
   TextEditingController dateController = TextEditingController();
+  DateTime selectDate = DateTime.now();
 
   @override
   void initState() {
@@ -66,6 +67,7 @@ class _AddExpenseState extends State<AddExpense> {
               TextFormField(
                 controller: categoryController,
                 textAlignVertical: TextAlignVertical.center,
+                readOnly: true,
                 decoration: InputDecoration(
                     filled: true,
                     fillColor: Colors.white,
@@ -74,6 +76,109 @@ class _AddExpenseState extends State<AddExpense> {
                       size: 16,
                       color: Colors.grey,
                     ),
+                    suffixIcon: IconButton(
+                        onPressed: () {
+                          showDialog(
+                              context: context,
+                              builder: (ctx) {
+                                bool isExpended = false;
+
+                                return StatefulBuilder(
+                                    builder: (context, setState) {
+                                  return AlertDialog(
+                                    title: const Text('Create a Category'),
+                                    content: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        const SizedBox(
+                                          height: 16,
+                                        ),
+                                        TextFormField(
+                                          // controller: dateController,
+                                          textAlignVertical:
+                                              TextAlignVertical.center,
+                                          // readOnly: true,
+                                          decoration: InputDecoration(
+                                              isDense: true,
+                                              filled: true,
+                                              fillColor: Colors.white,
+                                              hintText: 'Name',
+                                              border: OutlineInputBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(12),
+                                                  borderSide: BorderSide.none)),
+                                        ),
+                                        const SizedBox(
+                                          height: 16,
+                                        ),
+                                        TextFormField(
+                                          // controller: dateController,
+                                          onTap: () {
+                                            setState(() {
+                                              isExpended = !isExpended;
+                                            });
+                                          },
+                                          textAlignVertical:
+                                              TextAlignVertical.center,
+                                          readOnly: true,
+                                          decoration: const InputDecoration(
+                                              isDense: true,
+                                              filled: true,
+                                              suffixIcon: Icon(
+                                                CupertinoIcons.chevron_down,
+                                                size: 12,
+                                              ),
+                                              fillColor: Colors.white,
+                                              hintText: 'Icon',
+                                              border: OutlineInputBorder(
+                                                  borderRadius:
+                                                      BorderRadius.vertical(
+                                                          top: Radius.circular(
+                                                              12)),
+                                                  borderSide: BorderSide.none)),
+                                        ),
+                                        isExpended
+                                            ? Container(
+                                                width: double.infinity,
+                                                height: 200,
+                                                decoration: const BoxDecoration(
+                                                    color: Colors.white,
+                                                    borderRadius:
+                                                        BorderRadius.vertical(
+                                                            bottom:
+                                                                Radius.circular(
+                                                                    12))),
+                                              )
+                                            : Container(),
+                                        const SizedBox(
+                                          height: 16,
+                                        ),
+                                        TextFormField(
+                                          // controller: dateController,
+                                          textAlignVertical:
+                                              TextAlignVertical.center,
+                                          // readOnly: true,
+                                          decoration: InputDecoration(
+                                              isDense: true,
+                                              filled: true,
+                                              fillColor: Colors.white,
+                                              hintText: 'Color',
+                                              border: OutlineInputBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(12),
+                                                  borderSide: BorderSide.none)),
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                });
+                              });
+                        },
+                        icon: const Icon(
+                          FontAwesomeIcons.plus,
+                          size: 16,
+                          color: Colors.grey,
+                        )),
                     hintText: 'Category',
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
@@ -97,6 +202,7 @@ class _AddExpenseState extends State<AddExpense> {
                     setState(() {
                       dateController.text =
                           DateFormat('dd/MM/yyyy').format(newDate);
+                      selectDate = newDate;
                     });
                   }
                 },
