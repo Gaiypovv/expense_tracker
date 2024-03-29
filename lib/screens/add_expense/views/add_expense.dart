@@ -243,6 +243,33 @@ class _AddExpenseState extends State<AddExpense> {
                                                             onColorChanged:
                                                                 (value) {},
                                                           ),
+                                                          SizedBox(
+                                                            width:
+                                                                double.infinity,
+                                                            height: 50,
+                                                            child: TextButton(
+                                                                onPressed: () {
+                                                                  Navigator.pop(
+                                                                      ctx2);
+                                                                },
+                                                                style: TextButton.styleFrom(
+                                                                    backgroundColor:
+                                                                        Colors
+                                                                            .black,
+                                                                    shape: RoundedRectangleBorder(
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(
+                                                                                12))),
+                                                                child:
+                                                                    const Text(
+                                                                  'Save',
+                                                                  style: TextStyle(
+                                                                      fontSize:
+                                                                          22,
+                                                                      color: Colors
+                                                                          .white),
+                                                                )),
+                                                          ),
                                                         ],
                                                       ),
                                                     );
