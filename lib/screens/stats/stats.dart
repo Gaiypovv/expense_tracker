@@ -1,7 +1,5 @@
 import 'package:expense_tracker/screens/stats/chart.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class StatsScreen extends StatelessWidget {
   const StatsScreen({super.key});

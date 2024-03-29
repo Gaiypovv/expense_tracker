@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 
@@ -17,7 +18,7 @@ class _AddExpenseState extends State<AddExpense> {
   DateTime selectDate = DateTime.now();
 
   List<String> myCategoriesIcons = [
-    'entertainment',
+    'park',
     'food',
     'house',
     'pet',
@@ -26,6 +27,7 @@ class _AddExpenseState extends State<AddExpense> {
     'travel'
   ];
 
+  String iconSelected = '';
   @override
   void initState() {
     dateController.text = DateFormat('dd/MM/yyyy').format(DateTime.now());
@@ -169,25 +171,56 @@ class _AddExpenseState extends State<AddExpense> {
                                                               bottom: Radius
                                                                   .circular(
                                                                       12))),
-                                                  child: GridView.builder(
-                                                      gridDelegate:
-                                                          SliverGridDelegateWithFixedCrossAxisCount(
-                                                              crossAxisCount:
-                                                                  3),
-                                                      itemCount:
-                                                          myCategoriesIcons
-                                                              .length,
-                                                      itemBuilder:
-                                                          (context, int i) {
-                                                        return Container(
-                                                          width: 50,
-                                                          height: 50,
-                                                          decoration: BoxDecoration(
-                                                              image: DecorationImage(
-                                                                  image: AssetImage(
-                                                                      'assets/${myCategoriesIcons[i]}.png'))),
-                                                        );
-                                                      }),
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            8.0),
+                                                    child: GridView.builder(
+                                                        gridDelegate:
+                                                            const SliverGridDelegateWithFixedCrossAxisCount(
+                                                                crossAxisCount:
+                                                                    3,
+                                                                mainAxisSpacing:
+                                                                    5,
+                                                                crossAxisSpacing:
+                                                                    5),
+                                                        itemCount:
+                                                            myCategoriesIcons
+                                                                .length,
+                                                        itemBuilder:
+                                                            (context, int i) {
+                                                          return GestureDetector(
+                                                            onTap: () {
+                                                              setState(() {
+                                                                iconSelected ==
+                                                                    myCategoriesIcons[
+                                                                        i];
+                                                              });
+                                                            },
+                                                            child: Container(
+                                                              width: 50,
+                                                              height: 50,
+                                                              decoration: BoxDecoration(
+                                                                  border: Border.all(
+                                                                      width: 3,
+                                                                      color: iconSelected ==
+                                                                              myCategoriesIcons[
+                                                                                  i]
+                                                                          ? Colors
+                                                                              .green
+                                                                          : Colors
+                                                                              .grey),
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              12),
+                                                                  image: DecorationImage(
+                                                                      image: AssetImage(
+                                                                          'assets/${myCategoriesIcons[i]}.png.'))),
+                                                            ),
+                                                          );
+                                                        }),
+                                                  ),
                                                 )
                                               : Container(),
                                           const SizedBox(
@@ -195,9 +228,29 @@ class _AddExpenseState extends State<AddExpense> {
                                           ),
                                           TextFormField(
                                             // controller: dateController,
+                                            onTap: () {
+                                              showDialog(
+                                                  context: context,
+                                                  builder: (ctx2) {
+                                                    return AlertDialog(
+                                                      content: Column(
+                                                        mainAxisSize:
+                                                            MainAxisSize.min,
+                                                        children: [
+                                                          ColorPicker(
+                                                            pickerColor:
+                                                                Colors.blue,
+                                                            onColorChanged:
+                                                                (value) {},
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    );
+                                                  });
+                                            },
                                             textAlignVertical:
                                                 TextAlignVertical.center,
-                                            // readOnly: true,
+                                            readOnly: true,
                                             decoration: InputDecoration(
                                                 isDense: true,
                                                 filled: true,

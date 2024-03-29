@@ -162,7 +162,7 @@ class MainScreen extends StatelessWidget {
                                   color: Colors.white30,
                                   shape: BoxShape.circle),
                               child: Center(
-                                  child: Icon(
+                                  child: const Icon(
                                 CupertinoIcons.arrow_down,
                                 color: Colors.red,
                                 size: 12,
